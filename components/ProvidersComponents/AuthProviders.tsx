@@ -1,6 +1,6 @@
 import Link from "next/link"
 import React from "react"
-import { Button } from "components/Button/Button"
+
 import Image from "next/image"
 
 const AuthProviders = () => {
