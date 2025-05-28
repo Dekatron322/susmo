@@ -148,7 +148,7 @@ export default function CookiePolicy() {
               </li>
               <li className="pb-1">
                 Performance Cookies: These cookies help us understand how visitors interact with our website, such as
-                which pages are visited most often. This data helps us improve the website's functionality.
+                which pages are visited most often. This data helps us improve the website&lsquo;s functionality.
               </li>
               <li className="pb-1">
                 Functionality Cookies: These cookies allow us to remember your preferences (such as language or region)
@@ -171,7 +171,7 @@ export default function CookiePolicy() {
 
             <ul className="list-disc pl-8 text-sm">
               <li className="pb-1">
-                Browser Settings: Most browsers allow you to manage cookie settings through the browser's privacy
+                Browser Settings: Most browsers allow you to manage cookie settings through the browser&lsquo;s privacy
                 settings. You can delete or block cookies, but please note that doing so may affect the functionality of
                 certain parts of the website.
               </li>
@@ -273,8 +273,8 @@ export default function CookiePolicy() {
 
             <p className="text-sm font-medium text-[#000000CC]">
               We may update this Cookie Policy periodically to reflect changes in our practices or legal requirements.
-              Any changes will be posted on this page with an updated "Effective Date." Please check back regularly to
-              stay informed about our use of cookies.
+              Any changes will be posted on this page with an updated &quot;Effective Date.&quot; Please check back
+              regularly to stay informed about our use of cookies.
             </p>
           </div>
 

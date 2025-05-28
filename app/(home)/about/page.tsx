@@ -9,9 +9,6 @@ import MainFooter from "components/Footer/MainFooter"
 import { useRouter } from "next/navigation"
 import { ButtonModule } from "components/Button/Button"
 import ArrowIcon from "public/susmo/ArrowUpRight"
-import PlayIcon from "public/susmo/play"
-import SolutionIcon from "public/susmo/solution-icon"
-import Link from "next/link"
 import { FormInputModule } from "components/Button/InputeModule"
 import NewNav from "components/Navbar/NewNav"
 
@@ -98,7 +95,7 @@ export default function Brrike() {
                 <p className="text-[26px] font-bold">Aim</p>
                 <p>
                   To drive the future of cargo movement and field automation through smart electric vehicles and
-                  intelligent drones—engineered for India's evolving needs.
+                  intelligent drones—engineered for India&lsquo;s evolving needs.
                 </p>
               </div>
             </div>

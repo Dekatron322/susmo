@@ -135,7 +135,7 @@ export default function PrivacyPolicy() {
               </li>
               <li className="pb-1">
                 To send you updates regarding our products, services, and news related to sustainable mobility, as well
-                as promotional content if you've opted into receiving them.
+                as promotional content if you&lsquo;ve opted into receiving them.
               </li>
               <li className="pb-1">To respond to inquiries and communicate with you more effectively. </li>
               <li className="pb-1">To analyze user behavior and improve the functionality of our website. </li>

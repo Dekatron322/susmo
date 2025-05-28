@@ -58,9 +58,9 @@ export default function PrivacyPolicy() {
             <div className="mt-2">
               <p className="text-sm font-bold">1. No Warranty</p>
               <p className="text-sm font-medium text-[#000000CC]">
-                All content on the website is provided "as is". Susmo does not make any representations or warranties
-                regarding the completeness, reliability, or accuracy of the content, services, or features on our
-                website.
+                All content on the website is provided &quot;as is&quot;. Susmo does not make any representations or
+                warranties regarding the completeness, reliability, or accuracy of the content, services, or features on
+                our website.
               </p>
 
               <ul className="list-disc pl-8 text-sm">
@@ -204,9 +204,9 @@ export default function PrivacyPolicy() {
             <div className="mt-2">
               <p className="text-sm font-bold">1. No Warranty</p>
               <p className="text-sm font-medium text-[#000000CC]">
-                All content on the website is provided "as is". Susmo does not make any representations or warranties
-                regarding the completeness, reliability, or accuracy of the content, services, or features on our
-                website.
+                All content on the website is provided &quot;as is&quot;. Susmo does not make any representations or
+                warranties regarding the completeness, reliability, or accuracy of the content, services, or features on
+                our website.
               </p>
               <ul className="list-disc pl-8 text-sm">
                 <li className="pb-1">
