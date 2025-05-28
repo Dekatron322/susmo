@@ -76,7 +76,7 @@ export default function Web() {
       </section>
 
       <section className="headfont relative flex w-full flex-col items-center bg-[#EEEEEE] max-sm:px-4 md:pb-10">
-        <div className="relative z-20 -mt-24 mb-4 flex flex-col gap-6 rounded-2xl bg-white max-sm:p-6 md:w-[766px] md:p-8">
+        <div className="relative z-20 -mt-24 mb-4 flex w-full flex-col rounded-2xl bg-white max-xl:gap-4 max-sm:p-6 md:w-[766px] md:p-8 xl:gap-6">
           <DropdownPopoverModule
             label="Purpose of Enquiry"
             options={types}
@@ -86,7 +86,7 @@ export default function Web() {
             className="w-full"
           />
 
-          <div className="flex gap-10">
+          <div className="gap-10  xl:flex">
             <FormModule
               label="First Name"
               type="name"
@@ -101,7 +101,7 @@ export default function Web() {
               placeholder="Enter last name"
               value={username}
               onChange={handleUsernameChange}
-              className="w-full"
+              className="w-full max-xl:mt-4"
             />
           </div>
           <FormModule
@@ -110,7 +110,7 @@ export default function Web() {
             placeholder="Enter email"
             value={username}
             onChange={handleUsernameChange}
-            className="w-full"
+            className="w-full "
           />
           <div className="flex flex-col gap-2">
             <label htmlFor="refundNotes" className="text-[#6C7278]">
@@ -118,7 +118,7 @@ export default function Web() {
             </label>
             <textarea
               id="refundNotes"
-              className="focus:border-primary focus:ring-primary w-full rounded-md border border-[#EDF1F3] p-3 transition-colors duration-200 hover:border-[#47CD63] focus:outline-none focus:ring-2 focus:ring-[#47CD63]"
+              className="focus:border-primary focus:ring-primary w-full rounded-md border border-[#00000033] p-3 transition-colors duration-200 hover:border-[#47CD63] focus:outline-none focus:ring-2 focus:ring-[#47CD63]"
               rows={4}
               placeholder="Type Your Message.."
             />
@@ -130,7 +130,7 @@ export default function Web() {
             icon={<ArrowIcon />}
             iconPosition="end"
             onClick={handleProductClick}
-            className="w-[255px]"
+            className="md:w-[255px]"
           >
             Submit
           </ButtonModule>

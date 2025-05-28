@@ -168,45 +168,27 @@ export default function Web() {
 
         <div className="headfont flex w-full flex-col  items-center justify-center gap-12 ">
           <ul className="list-inside list-disc ">
-            <li className="pb-4 text-sm font-bold text-[#FFFFFFCC] max-sm:text-xs">By 2025</li>
-            <li className="pb-4 text-sm text-[#FFFFFFCC] max-sm:text-xs">
-              Deploy first fleet of Susmo EVs in targeted logistics clusters.
-            </li>
-            <li className="pb-4 text-sm text-[#FFFFFFCC] max-sm:text-xs">
-              Pilot agri-drone operations across 100+ acres.
-            </li>
-            <li className="pb-4 text-sm text-[#FFFFFFCC] max-sm:text-xs">
-              Begin savings of 14–20% energy using our patented BLDC motors.
-            </li>
-            <li className="pb-3 text-sm text-[#FFFFFFCC] max-sm:text-xs">
-              Establish presence in 10 villages with integrated solutions.
-            </li>
+            <li className="pb-4  font-bold text-[#FFFFFFCC] ">By 2025</li>
+            <li className="pb-4  text-[#FFFFFFCC] ">Deploy first fleet of Susmo EVs in targeted logistics clusters.</li>
+            <li className="pb-4  text-[#FFFFFFCC] ">Pilot agri-drone operations across 100+ acres.</li>
+            <li className="pb-4  text-[#FFFFFFCC] ">Begin savings of 14–20% energy using our patented BLDC motors.</li>
+            <li className="pb-3  text-[#FFFFFFCC] ">Establish presence in 10 villages with integrated solutions.</li>
           </ul>
           <ul className="list-inside list-disc">
-            <li className="pb-4 text-sm font-bold text-[#FFFFFFCC] max-sm:text-xs">By 2026</li>
-            <li className="pb-4 text-sm text-[#FFFFFFCC] max-sm:text-xs">
+            <li className="pb-4  font-bold text-[#FFFFFFCC] ">By 2026</li>
+            <li className="pb-4  text-[#FFFFFFCC] ">
               Expand EV-enabled last-mile delivery network to 5,000+ deliveries.
             </li>
-            <li className="pb-4 text-sm text-[#FFFFFFCC] max-sm:text-xs">Scale aerial automation to 600+ acres.</li>
-            <li className="pb-4 text-sm text-[#FFFFFFCC] max-sm:text-xs">
-              Improve logistics efficiency by 2.5x in key rural corridors.
-            </li>
-            <li className="pb-3 text-sm text-[#FFFFFFCC] max-sm:text-xs">
-              Reach 50 villages with ground + aerial tech deployments.
-            </li>
+            <li className="pb-4  text-[#FFFFFFCC] ">Scale aerial automation to 600+ acres.</li>
+            <li className="pb-4  text-[#FFFFFFCC] ">Improve logistics efficiency by 2.5x in key rural corridors.</li>
+            <li className="pb-3  text-[#FFFFFFCC] ">Reach 50 villages with ground + aerial tech deployments.</li>
           </ul>
           <ul className="list-inside list-disc">
-            <li className="pb-4 text-sm font-bold text-[#FFFFFFCC] max-sm:text-xs">By 2027</li>
-            <li className="pb-4 text-sm text-[#FFFFFFCC] max-sm:text-xs">
-              Power 10,000+ deliveries through clean mobility.
-            </li>
-            <li className="pb-4 text-sm text-[#FFFFFFCC] max-sm:text-xs">
-              Enable 1,500+ acres of land to benefit from aerial automation.
-            </li>
-            <li className="pb-4 text-sm text-[#FFFFFFCC] max-sm:text-xs">
-              Achieve 4x operational efficiency in rural mobility.
-            </li>
-            <li className="pb-3 text-sm text-[#FFFFFFCC] max-sm:text-xs">
+            <li className="pb-4  font-bold text-[#FFFFFFCC] ">By 2027</li>
+            <li className="pb-4  text-[#FFFFFFCC] ">Power 10,000+ deliveries through clean mobility.</li>
+            <li className="pb-4  text-[#FFFFFFCC] ">Enable 1,500+ acres of land to benefit from aerial automation.</li>
+            <li className="pb-4  text-[#FFFFFFCC] ">Achieve 4x operational efficiency in rural mobility.</li>
+            <li className="pb-3  text-[#FFFFFFCC] ">
               Positively impact 100+ villages with smart, sustainable solutions.
             </li>
           </ul>

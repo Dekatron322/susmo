@@ -52,7 +52,7 @@ export const DropdownPopoverModule: React.FC<DropdownPopoverProps> = ({
       <div
         className={`
           flex h-[46px] cursor-pointer items-center rounded-md border px-3
-          py-2 ${error ? "border-[#D14343]" : "border-[#E4E5E73D]"}
+          py-2 ${error ? "border-[#D14343]" : "border-[#00000033]"}
           ${isFocused ? "bg-[#FBFAFC] ring-2 ring-[#47CD63]" : "bg-white"}
           transition-all duration-200
         `}
