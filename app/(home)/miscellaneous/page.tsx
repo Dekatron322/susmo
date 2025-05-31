@@ -20,16 +20,12 @@ export default function PrivacyPolicy() {
   const [searchText, setSearchText] = useState("")
   const [type, setType] = useState("")
   const [activeTab, setActiveTab] = useState<PolicyTab>("disclaimer")
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
 
   const handleProductClick = () => {
     router.push("/our-product")
   }
-
-  const types = [
-    { value: "Drives", label: "Drives" },
-    { value: "Drones", label: "Drones" },
-    { value: "Brrikes", label: "Brrikes" },
-  ]
 
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value)
@@ -38,6 +34,32 @@ export default function PrivacyPolicy() {
   useEffect(() => {
     // Filter categories based on search text
   }, [searchText])
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false)
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [])
+
+  const getTabTitle = (tab: PolicyTab) => {
+    switch (tab) {
+      case "disclaimer":
+        return "Disclaimer"
+      case "shipping":
+        return "Shipping Policy"
+      case "refund":
+        return "Refund Policy"
+      default:
+        return ""
+    }
+  }
 
   const renderPolicyContent = () => {
     switch (activeTab) {
@@ -537,8 +559,9 @@ export default function PrivacyPolicy() {
       </section>
 
       <section className="headfont relative flex w-full flex-col items-center bg-[#EEEEEE] px-4 max-xl:px-6 md:pb-10">
-        <div className="relative z-20 -mt-24 mb-4 flex gap-6  rounded-2xl bg-white p-8 xl:w-[1018px]">
-          <div className="whitespace-nowrap">
+        <div className="relative z-20 -mt-24 mb-4 flex gap-6 rounded-2xl  bg-white p-8 max-sm:flex-col xl:w-[1018px]">
+          {/* Desktop View - Tabs */}
+          <div className="whitespace-nowrap max-sm:hidden">
             <p
               className={`cursor-pointer font-medium uppercase ${
                 activeTab === "disclaimer" ? "font-bold underline" : "text-[#000000CC]"
@@ -564,7 +587,64 @@ export default function PrivacyPolicy() {
               Refund Policy
             </p>
           </div>
-          <div className="flex flex-col border-l border-[#00000026] pl-6">{renderPolicyContent()}</div>
+
+          {/* Mobile View - Dropdown */}
+          <div className="relative hidden max-sm:block" ref={dropdownRef}>
+            <button
+              className="flex items-center justify-between whitespace-nowrap rounded border border-gray-300 px-4 py-2 font-medium uppercase"
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            >
+              {getTabTitle(activeTab)}
+              <svg
+                className={`ml-2 h-4 w-4 transition-transform ${isDropdownOpen ? "rotate-180" : ""}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            {isDropdownOpen && (
+              <div className="absolute left-0 right-0 z-10 mt-1 rounded border border-gray-300 bg-white shadow-lg">
+                <p
+                  className={`cursor-pointer px-4 py-2 font-medium uppercase ${
+                    activeTab === "disclaimer" ? "font-bold underline" : "text-[#000000CC]"
+                  }`}
+                  onClick={() => {
+                    setActiveTab("disclaimer")
+                    setIsDropdownOpen(false)
+                  }}
+                >
+                  Disclaimer
+                </p>
+                <p
+                  className={`cursor-pointer px-4 py-2 font-medium uppercase ${
+                    activeTab === "shipping" ? "font-bold underline" : "text-[#000000CC]"
+                  }`}
+                  onClick={() => {
+                    setActiveTab("shipping")
+                    setIsDropdownOpen(false)
+                  }}
+                >
+                  Shipping Policy
+                </p>
+                <p
+                  className={`cursor-pointer px-4 py-2 font-medium uppercase ${
+                    activeTab === "refund" ? "font-bold underline" : "text-[#000000CC]"
+                  }`}
+                  onClick={() => {
+                    setActiveTab("refund")
+                    setIsDropdownOpen(false)
+                  }}
+                >
+                  Refund Policy
+                </p>
+              </div>
+            )}
+          </div>
+
+          <div className="flex flex-col border-[#00000026] md:border-l md:pl-6">{renderPolicyContent()}</div>
         </div>
       </section>
 

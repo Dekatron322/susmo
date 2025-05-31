@@ -131,9 +131,9 @@ const DashboardNav = () => {
 
   return (
     <motion.nav
-      initial={{ opacity: 0, y: -20 }}
+      initial={{ opacity: 0, y: -5 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ ease: "easeOut", duration: 1 }}
+      transition={{ ease: "easeIn", duration: 1 }}
       className={`flexBetween navbar  z-50  items-center text-white  max-xl:hidden ${
         isScrolled ? "bg-black" : "bg-transparent"
       }`}
@@ -191,7 +191,7 @@ const DashboardNav = () => {
                           <motion.div
                             initial={{ opacity: 0, y: -20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
+                            exit={{ opacity: 0, y: 0 }}
                             transition={{ duration: 0.3 }}
                             className="nav-list-item fixed left-0 right-0 top-full cursor-pointer shadow-lg dark:bg-gray-800"
                             style={{ width: "100%" }}

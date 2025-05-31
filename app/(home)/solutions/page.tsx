@@ -4,7 +4,7 @@ import Footer from "components/Footer/Footer"
 import Image from "next/image"
 import Navbar from "components/Navbar/Navbar"
 import { useEffect, useRef, useState } from "react"
-import { motion } from "framer-motion"
+import { motion, useAnimation, useInView } from "framer-motion"
 import MainFooter from "components/Footer/MainFooter"
 import { useRouter } from "next/navigation"
 import { ButtonModule } from "components/Button/Button"
@@ -32,6 +32,39 @@ export default function Web() {
     // Filter categories based on search text
   }, [searchText])
 
+  // Animation variants
+  const container = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  }
+
+  const item = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    },
+  }
+
+  const fadeIn = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.8, ease: "easeOut" } },
+  }
+
+  const scaleUp = {
+    hidden: { scale: 0.9, opacity: 0 },
+    visible: { scale: 1, opacity: 1, transition: { duration: 0.5, ease: "easeOut" } },
+  }
+
   return (
     <section className="bg-black">
       <Navbar />
@@ -40,7 +73,6 @@ export default function Web() {
         id="about"
         className="about-section relative grid w-full items-center justify-center bg-black max-sm:py-4 md:h-[450px] md:py-16"
       >
-        {/* Replaced video with Image component */}
         <div className="absolute inset-0 h-full w-full overflow-hidden">
           <Image
             src="/susmo/solutions.svg"
@@ -54,29 +86,41 @@ export default function Web() {
 
         <motion.div
           className="paddings relative z-10 pb-10 max-sm:px-3"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.8 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          variants={scaleUp}
         >
           <div className="flex h-full w-full items-center max-xl:mt-2 max-xl:justify-center max-xl:text-center max-sm:justify-center lg:mt-0 lg:items-center">
             <div className="flex w-full flex-col items-center justify-center">
-              <p className="headfont  text-center text-6xl font-semibold text-[#FFFFFF] max-xl:text-3xl max-lg:mt-5 max-lg:text-4xl">
+              <motion.p
+                className="headfont text-center text-6xl font-semibold text-[#FFFFFF] max-xl:text-3xl max-lg:mt-5 max-lg:text-4xl"
+                variants={item}
+              >
                 Solutions
-              </p>
+              </motion.p>
             </div>
           </div>
         </motion.div>
       </section>
 
-      <section className="paddings relative flex w-full  flex-col items-center justify-between gap-16 bg-[#FFFFFF] md:py-24">
-        <div className="grid w-full gap-6 max-sm:grid-cols-1 max-sm:gap-4 md:grid-cols-3">
-          <div className="flex w-full flex-col gap-4 rounded-3xl border border-[#0000001A] bg-[#F7F7F7] p-6 max-sm:rounded-xl max-sm:p-4">
+      <section className="paddings relative flex w-full flex-col items-center justify-between gap-16 bg-[#FFFFFF] md:py-24">
+        <motion.div
+          className="grid w-full gap-6 max-sm:grid-cols-1 max-sm:gap-4 md:grid-cols-3"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={container}
+        >
+          <motion.div
+            className="flex w-full flex-col gap-4 rounded-3xl border border-[#0000001A] bg-[#F7F7F7] p-6 max-sm:rounded-xl max-sm:p-4"
+            variants={item}
+          >
             <SolutionIcon className="max-sm:h-10 max-sm:w-10" />
             <p className="headfont text-xl font-semibold max-sm:text-sm">Drone spraying as a service</p>
             <p className="text-sm max-sm:text-xs">
               Precision drone spraying boosts crop health and saves input costs, delivering uniform coverage, reduced
-              labor, and targeted pest control tailored to each field’s unique needs.
+              labor, and targeted pest control tailored to each field's unique needs.
             </p>
             <Link
               href="/enquire"
@@ -84,8 +128,12 @@ export default function Web() {
             >
               Enquire Now
             </Link>
-          </div>
-          <div className="flex w-full flex-col gap-4 rounded-3xl border border-[#0000001A] bg-[#F7F7F7] p-6 max-sm:rounded-xl max-sm:p-4">
+          </motion.div>
+
+          <motion.div
+            className="flex w-full flex-col gap-4 rounded-3xl border border-[#0000001A] bg-[#F7F7F7] p-6 max-sm:rounded-xl max-sm:p-4"
+            variants={item}
+          >
             <SolutionIcon className="max-sm:h-10 max-sm:w-10" />
             <p className="headfont text-xl font-semibold max-sm:text-sm">Rural logistics optimization</p>
             <p className="text-sm max-sm:text-xs">
@@ -98,8 +146,12 @@ export default function Web() {
             >
               Enquire Now
             </Link>
-          </div>
-          <div className="flex w-full flex-col gap-4 rounded-3xl border border-[#0000001A] bg-[#F7F7F7] p-6 max-sm:rounded-xl max-sm:p-4">
+          </motion.div>
+
+          <motion.div
+            className="flex w-full flex-col gap-4 rounded-3xl border border-[#0000001A] bg-[#F7F7F7] p-6 max-sm:rounded-xl max-sm:p-4"
+            variants={item}
+          >
             <SolutionIcon className="max-sm:h-10 max-sm:w-10" />
             <p className="headfont text-xl font-semibold max-sm:text-sm">Fleet monitoring dashboards</p>
             <p className="text-sm max-sm:text-xs">
@@ -112,9 +164,12 @@ export default function Web() {
             >
               Enquire Now
             </Link>
-          </div>
+          </motion.div>
 
-          <div className="flex w-full flex-col gap-4 rounded-3xl border border-[#0000001A] bg-[#F7F7F7] p-6 max-sm:rounded-xl max-sm:p-4">
+          <motion.div
+            className="flex w-full flex-col gap-4 rounded-3xl border border-[#0000001A] bg-[#F7F7F7] p-6 max-sm:rounded-xl max-sm:p-4"
+            variants={item}
+          >
             <SolutionIcon className="max-sm:h-10 max-sm:w-10" />
             <p className="headfont text-xl font-semibold max-sm:text-sm">Battery swapping stations</p>
             <p className="text-sm max-sm:text-xs">
@@ -127,8 +182,12 @@ export default function Web() {
             >
               Enquire Now
             </Link>
-          </div>
-          <div className="flex w-full flex-col gap-4 rounded-3xl border border-[#0000001A] bg-[#F7F7F7] p-6 max-sm:rounded-xl max-sm:p-4">
+          </motion.div>
+
+          <motion.div
+            className="flex w-full flex-col gap-4 rounded-3xl border border-[#0000001A] bg-[#F7F7F7] p-6 max-sm:rounded-xl max-sm:p-4"
+            variants={item}
+          >
             <SolutionIcon className="max-sm:h-10 max-sm:w-10" />
             <p className="headfont text-xl font-semibold max-sm:text-sm">Precision agriculture data insights</p>
             <p className="text-sm max-sm:text-xs">
@@ -141,9 +200,12 @@ export default function Web() {
             >
               Enquire Now
             </Link>
-          </div>
+          </motion.div>
 
-          <div className="flex w-full flex-col gap-4 rounded-3xl border border-[#0000001A] bg-[#F7F7F7] p-6 max-sm:rounded-xl max-sm:p-4">
+          <motion.div
+            className="flex w-full flex-col gap-4 rounded-3xl border border-[#0000001A] bg-[#F7F7F7] p-6 max-sm:rounded-xl max-sm:p-4"
+            variants={item}
+          >
             <SolutionIcon className="max-sm:h-10 max-sm:w-10" />
             <p className="headfont text-xl font-semibold max-sm:text-sm">Solar-integrated charging options</p>
             <p className="text-sm max-sm:text-xs">
@@ -156,8 +218,12 @@ export default function Web() {
             >
               Enquire Now
             </Link>
-          </div>
-          <div className="flex w-full flex-col gap-4 rounded-3xl border border-[#0000001A] bg-[#F7F7F7] p-6 max-sm:rounded-xl max-sm:p-4">
+          </motion.div>
+
+          <motion.div
+            className="flex w-full flex-col gap-4 rounded-3xl border border-[#0000001A] bg-[#F7F7F7] p-6 max-sm:rounded-xl max-sm:p-4"
+            variants={item}
+          >
             <SolutionIcon className="max-sm:h-10 max-sm:w-10" />
             <p className="headfont text-xl font-semibold max-sm:text-sm">Custom modular trolleys</p>
             <p className="text-sm max-sm:text-xs">
@@ -170,8 +236,12 @@ export default function Web() {
             >
               Enquire Now
             </Link>
-          </div>
-          <div className="flex w-full flex-col gap-4 rounded-3xl border border-[#0000001A] bg-[#F7F7F7] p-6 max-sm:rounded-xl max-sm:p-4">
+          </motion.div>
+
+          <motion.div
+            className="flex w-full flex-col gap-4 rounded-3xl border border-[#0000001A] bg-[#F7F7F7] p-6 max-sm:rounded-xl max-sm:p-4"
+            variants={item}
+          >
             <SolutionIcon className="max-sm:h-10 max-sm:w-10" />
             <p className="headfont text-xl font-semibold max-sm:text-sm">Remote diagnostics & service support</p>
             <p className="text-sm max-sm:text-xs">
@@ -184,8 +254,12 @@ export default function Web() {
             >
               Enquire Now
             </Link>
-          </div>
-          <div className="flex w-full flex-col gap-4 rounded-3xl border border-[#0000001A] bg-[#F7F7F7] p-6 max-sm:rounded-xl max-sm:p-4">
+          </motion.div>
+
+          <motion.div
+            className="flex w-full flex-col gap-4 rounded-3xl border border-[#0000001A] bg-[#F7F7F7] p-6 max-sm:rounded-xl max-sm:p-4"
+            variants={item}
+          >
             <SolutionIcon className="max-sm:h-10 max-sm:w-10" />
             <p className="headfont text-xl font-semibold max-sm:text-sm">EV leasing for smallholder operators</p>
             <p className="text-sm max-sm:text-xs">
@@ -198,8 +272,12 @@ export default function Web() {
             >
               Enquire Now
             </Link>
-          </div>
-          <div className="flex w-full flex-col gap-4 rounded-3xl border border-[#0000001A] bg-[#F7F7F7] p-6 max-sm:rounded-xl max-sm:p-4">
+          </motion.div>
+
+          <motion.div
+            className="flex w-full flex-col gap-4 rounded-3xl border border-[#0000001A] bg-[#F7F7F7] p-6 max-sm:rounded-xl max-sm:p-4"
+            variants={item}
+          >
             <SolutionIcon className="max-sm:h-10 max-sm:w-10" />
             <p className="headfont text-xl font-semibold max-sm:text-sm">Rural mobility rollout</p>
             <p className="text-sm max-sm:text-xs">
@@ -212,11 +290,11 @@ export default function Web() {
             >
               Enquire Now
             </Link>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
-      <section id="about" className="about-section relative w-full items-center justify-between bg-black py-16 ">
-        {/* Replaced video with Image component */}
+
+      <section id="about" className="about-section relative w-full items-center justify-between bg-black py-16">
         <div className="absolute inset-0 h-full w-full overflow-hidden">
           <Image
             src="/susmo/footbg.svg"
@@ -230,23 +308,28 @@ export default function Web() {
 
         <motion.div
           className="paddings relative z-10 flex h-full flex-col justify-between max-xl:px-3 md:pb-10"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.8 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={container}
         >
-          <div className="flex h-full w-full  max-xl:mt-2  max-xl:justify-center max-xl:text-center lg:mt-0">
-            <div className="flex w-full flex-col  justify-between">
-              <div className="flex w-full items-center justify-center max-xl:mb-10 md:mb-20">
+          <div className="flex h-full w-full max-xl:mt-2 max-xl:justify-center max-xl:text-center lg:mt-0">
+            <div className="flex w-full flex-col justify-between">
+              <motion.div className="flex w-full items-center justify-center max-xl:mb-10 md:mb-20" variants={item}>
                 <p className="headfont text-3xl font-semibold text-white max-xl:text-2xl md:w-[392px]">
                   Powering Smart Mobility — On Roads and Above
                 </p>
-              </div>
+              </motion.div>
             </div>
           </div>
-          <div className="headfont text-medium flex justify-between rounded-3xl bg-black text-5xl text-[#ffffff] max-xl:flex-col max-xl:p-8 max-xl:text-2xl max-sm:p-4 xl:h-[351px] xl:items-center xl:px-[100px]">
-            <p className="md:leading-[60px]  xl:w-[660px]">Never miss an update, offers and invites.</p>
-            <div className="flex flex-col  items-end justify-end md:gap-4">
+          <motion.div
+            className="headfont text-medium flex justify-between rounded-3xl bg-black text-5xl text-[#ffffff] max-xl:flex-col max-xl:p-8 max-xl:text-2xl max-sm:p-4 xl:h-[351px] xl:items-center xl:px-[100px]"
+            variants={item}
+          >
+            <motion.p className="md:leading-[60px] xl:w-[660px]" variants={item}>
+              Never miss an update, offers and invites.
+            </motion.p>
+            <motion.div className="flex flex-col items-end justify-end md:gap-4" variants={item}>
               <FormInputModule
                 label=""
                 type="name"
@@ -265,12 +348,12 @@ export default function Web() {
               >
                 Subscribe
               </ButtonModule>
-              <p className="text-end text-sm  text-[#FFFFFFCC] max-xl:my-6 md:w-[400px]">
+              <p className="text-end text-sm text-[#FFFFFFCC] max-xl:my-6 md:w-[400px]">
                 By submitting, I agree to receive future communications from Susmo and I have read and agree to Susmo
                 Terms and acknowledge the Data Privacy Notice.
               </p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </motion.div>
       </section>
 
