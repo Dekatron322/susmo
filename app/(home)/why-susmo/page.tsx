@@ -123,7 +123,7 @@ export default function Web() {
                 className="mt-2 px-6 text-center text-white max-sm:text-xs md:mt-4 md:w-[522px] md:text-2xl"
                 variants={item}
               >
-                We're building more than products—we're engineering tomorrow.
+                We&apos;re building more than products—we&apos;re engineering tomorrow.
               </motion.p>
             </div>
           </div>
@@ -301,7 +301,7 @@ export default function Web() {
             Impact Snapshot (2025–2027)
           </motion.p>
           <motion.p className="text-[#FFFFFF]" variants={item}>
-            Here's what we aim to deliver in our first three years of scale:
+            Here&apos;s what we aim to deliver in our first three years of scale:
           </motion.p>
 
           <motion.div className="headfont flex w-full flex-col items-center justify-center gap-12" variants={container}>

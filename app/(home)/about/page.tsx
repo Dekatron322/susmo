@@ -169,7 +169,7 @@ export default function Brrike() {
               <div className="w-full text-start">
                 <p className="text-[26px] font-bold">Vision</p>
                 <p>
-                  To become India's most trusted DeepTech manufacturer for sustainable cargo and automation
+                  To become India&lsquo;s most trusted DeepTech manufacturer for sustainable cargo and automation
                   systems—connecting roads and skies through intelligent, scalable technologies.
                 </p>
               </div>
@@ -281,7 +281,7 @@ export default function Brrike() {
                 To serve 100+ districts with last-mile cargo and aerial automation solutions by 2027.
               </motion.li>
               <motion.li variants={item}>
-                To scale the adoption of Susmo's patented BLDC motor across multiple mobility platforms.
+                To scale the adoption of Susmo&lsquo;s patented BLDC motor across multiple mobility platforms.
               </motion.li>
               <motion.li variants={item}>
                 To create measurable impact in logistics, agriculture, and infrastructure through cleaner and smarter
@@ -375,7 +375,7 @@ export default function Brrike() {
             className="rounded-3xl border-2 border-dashed border-[#000000] bg-white p-6 max-sm:text-center"
             variants={item}
           >
-            <p>"We engineer what moves, and we automate what matters."</p>
+            <p>&quot;We engineer what moves, and we automate what matters.&quot;</p>
           </motion.div>
         </motion.div>
       </section>

@@ -120,7 +120,7 @@ export default function Web() {
             <p className="headfont text-xl font-semibold max-sm:text-sm">Drone spraying as a service</p>
             <p className="text-sm max-sm:text-xs">
               Precision drone spraying boosts crop health and saves input costs, delivering uniform coverage, reduced
-              labor, and targeted pest control tailored to each field's unique needs.
+              labor, and targeted pest control tailored to each field&apos;s unique needs.
             </p>
             <Link
               href="/enquire"
