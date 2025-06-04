@@ -115,6 +115,9 @@ const MainFooter = () => {
             <Link href="cookie-policy" className="hover-effect">
               Cookies
             </Link>
+            <Link href="nda" className="hover-effect whitespace-nowrap">
+              Supplier NDA
+            </Link>
           </div>
         </div>
       </section>

@@ -11,11 +11,13 @@ import { ButtonModule } from "components/Button/Button"
 import ArrowIcon from "public/susmo/ArrowUpRight"
 import { FormInputModule } from "components/Button/InputeModule"
 import NewNav from "components/Navbar/NewNav"
+import { SubscriptionForm } from "components/SubscriptionForm"
 
 export default function Web() {
   const router = useRouter()
-  const [username, setUsername] = useState("")
-  const [searchText, setSearchText] = useState("")
+  const [email, setEmail] = useState("")
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [subscriptionStatus, setSubscriptionStatus] = useState<"idle" | "success" | "error">("idle")
   const controls = useAnimation()
   const ref = useRef(null)
   const isInView = useInView(ref, { once: false, amount: 0.1 })
@@ -34,15 +36,55 @@ export default function Web() {
     router.push("/solutions")
   }
 
-  const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(event.target.value)
+  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value)
+    setSubscriptionStatus("idle")
   }
 
-  useEffect(() => {
-    // Filter categories based on search text
-  }, [searchText])
+  const handleSubscribe = async () => {
+    if (!email) {
+      setSubscriptionStatus("error")
+      return
+    }
 
-  // Animation variants
+    setIsSubmitting(true)
+    setSubscriptionStatus("idle")
+
+    // Create URLSearchParams instead of JSON body
+    const formData = new URLSearchParams()
+    formData.append("api_key", "Vo0OnvZwZkP9x0JMOLMb")
+    formData.append("list", "TXL3t7638tGtBAtquo6OJf2A")
+    formData.append("email", email)
+    formData.append("boolean", "true") // Get simple response
+
+    try {
+      const response = await fetch("https://sendy-admin.smarthavensystems.com/subscribe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: formData,
+        mode: "cors", // Explicitly set CORS mode
+        credentials: "omit", // Don't send cookies
+      })
+
+      const result = await response.text()
+
+      if (result === "1") {
+        setSubscriptionStatus("success")
+        setEmail("")
+      } else {
+        setSubscriptionStatus("error")
+        console.error("Subscription failed:", result)
+      }
+    } catch (error) {
+      setSubscriptionStatus("error")
+      console.error("Error submitting subscription:", error)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   const container = {
     hidden: { opacity: 0 },
     visible: {
@@ -362,38 +404,15 @@ export default function Web() {
               </motion.div>
             </div>
           </div>
-          <motion.div
-            className="headfont text-medium flex justify-between rounded-3xl bg-black text-5xl text-[#ffffff] max-xl:flex-col max-xl:p-8 max-xl:text-2xl max-sm:p-4 xl:h-[351px] xl:items-center xl:px-[100px]"
+          <SubscriptionForm
+            title="Never miss an update, offers and invites."
+            termsText="By submitting, I agree to receive future communications from Susmo and I have read and agree to Susmo Terms and acknowledge the Data Privacy Notice."
+            apiKey="Vo0OnvZwZkP9x0JMOLMb"
+            listId="TXL3t7638tGtBAtquo6OJf2A"
             variants={item}
-          >
-            <motion.p className="md:leading-[60px] xl:w-[660px]" variants={item}>
-              Never miss an update, offers and invites.
-            </motion.p>
-            <motion.div className="flex flex-col items-end justify-end md:gap-4" variants={item}>
-              <FormInputModule
-                label=""
-                type="name"
-                placeholder="email"
-                value={username}
-                onChange={handleUsernameChange}
-                className="mb-3 max-xl:mt-6 max-xl:w-full md:w-[400px]"
-              />
-              <ButtonModule
-                type="button"
-                variant="primaryOutline"
-                size="md"
-                icon={<ArrowIcon />}
-                iconPosition="end"
-                onClick={handleProductClick}
-              >
-                Subscribe
-              </ButtonModule>
-              <p className="text-end text-sm text-[#FFFFFFCC] max-xl:my-6 md:w-[400px]">
-                By submitting, I agree to receive future communications from Susmo and I have read and agree to Susmo
-                Terms and acknowledge the Data Privacy Notice.
-              </p>
-            </motion.div>
-          </motion.div>
+            successMessage="You're subscribed! Welcome to our community."
+            errorMessage="Oops! Something went wrong. Please try again later."
+          />
         </motion.div>
       </section>
 

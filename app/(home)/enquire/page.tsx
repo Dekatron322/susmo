@@ -16,6 +16,7 @@ import { FormInputModule } from "components/Button/InputeModule"
 import { FormModule } from "components/Button/FormModule"
 import { DropdownPopoverModule } from "components/Button/DropdownModule"
 import NewNav from "components/Navbar/NewNav"
+import { SubscriptionForm } from "components/SubscriptionForm"
 
 export default function Web() {
   const router = useRouter()
@@ -40,6 +41,18 @@ export default function Web() {
   useEffect(() => {
     // Filter categories based on search text
   }, [searchText])
+
+  const item = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    },
+  }
 
   return (
     <section className="bg-black">
@@ -166,33 +179,15 @@ export default function Web() {
               </div>
             </div>
           </div>
-          <div className="headfont text-medium flex items-center justify-between rounded-3xl bg-black text-5xl text-[#ffffff] max-sm:flex-col max-sm:p-4 max-sm:text-2xl md:h-[351px] md:px-[100px]">
-            <p className="md:w-[660px]  md:leading-[60px]">Never miss an update, offers and invites.</p>
-            <div className="flex flex-col  items-end justify-end md:gap-4">
-              <FormInputModule
-                label=""
-                type="name"
-                placeholder="email"
-                value={username}
-                onChange={handleUsernameChange}
-                className="mb-3 max-sm:mt-6 max-sm:w-full md:w-[400px]"
-              />
-              <ButtonModule
-                type="button"
-                variant="primaryOutline"
-                size="md"
-                icon={<ArrowIcon />}
-                iconPosition="end"
-                onClick={handleProductClick}
-              >
-                Subscribe
-              </ButtonModule>
-              <p className="text-end text-sm  text-[#FFFFFFCC] max-sm:my-6 md:w-[400px]">
-                By submitting, I agree to receive future communications from Susmo and I have read and agree to Susmo
-                Terms and acknowledge the Data Privacy Notice.
-              </p>
-            </div>
-          </div>
+          <SubscriptionForm
+            title="Never miss an update, offers and invites."
+            termsText="By submitting, I agree to receive future communications from Susmo and I have read and agree to Susmo Terms and acknowledge the Data Privacy Notice."
+            apiKey="Vo0OnvZwZkP9x0JMOLMb"
+            listId="TXL3t7638tGtBAtquo6OJf2A"
+            variants={item}
+            successMessage="You're subscribed! Welcome to our community."
+            errorMessage="Oops! Something went wrong. Please try again later."
+          />
         </motion.div>
       </section>
 
