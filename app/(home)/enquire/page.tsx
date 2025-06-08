@@ -16,13 +16,11 @@ import { FormInputModule } from "components/Button/InputeModule"
 import { FormModule } from "components/Button/FormModule"
 import { DropdownPopoverModule } from "components/Button/DropdownModule"
 import NewNav from "components/Navbar/NewNav"
-import { SubscriptionForm } from "components/SubscriptionForm"
+import { EnquiryForm } from "components/EnquiryForm"
 
 export default function Web() {
   const router = useRouter()
-  const [username, setUsername] = useState("")
   const [searchText, setSearchText] = useState("")
-  const [type, setType] = useState("")
 
   const handleProductClick = () => {
     router.push("/our-product")
@@ -33,10 +31,6 @@ export default function Web() {
     { value: "Drones", label: "Drones" },
     { value: "Brrikes", label: "Brrikes" },
   ]
-
-  const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(event.target.value)
-  }
 
   useEffect(() => {
     // Filter categories based on search text
@@ -59,7 +53,6 @@ export default function Web() {
       <Navbar />
       <NewNav />
       <section className="about-section relative grid w-full items-center justify-center bg-black  max-sm:h-[253px] md:h-[450px] md:py-16">
-        {/* Replaced video with Image component */}
         <div className="absolute inset-0 h-full w-full overflow-hidden">
           <Image
             src="/susmo/solutions.svg"
@@ -89,69 +82,18 @@ export default function Web() {
       </section>
 
       <section className="headfont relative flex w-full flex-col items-center bg-[#EEEEEE] max-sm:px-4 md:pb-10">
-        <div className="relative z-20 -mt-24 mb-4 flex w-full flex-col rounded-2xl bg-white max-xl:gap-4 max-sm:p-6 md:w-[766px] md:p-8 xl:gap-6">
-          <DropdownPopoverModule
-            label="Purpose of Enquiry"
-            options={types}
-            placeholder="Select Category"
-            value={type}
-            onChange={setType}
-            className="w-full"
-          />
-
-          <div className="gap-10  xl:flex">
-            <FormModule
-              label="First Name"
-              type="name"
-              placeholder="Enter first name"
-              value={username}
-              onChange={handleUsernameChange}
-              className="w-full"
-            />
-            <FormModule
-              label="Last Name"
-              type="name"
-              placeholder="Enter last name"
-              value={username}
-              onChange={handleUsernameChange}
-              className="w-full max-xl:mt-4"
-            />
-          </div>
-          <FormModule
-            label="Email"
-            type="name"
-            placeholder="Enter email"
-            value={username}
-            onChange={handleUsernameChange}
-            className="w-full "
-          />
-          <div className="flex flex-col gap-2">
-            <label htmlFor="refundNotes" className="text-[#6C7278]">
-              Message
-            </label>
-            <textarea
-              id="refundNotes"
-              className="focus:border-primary focus:ring-primary w-full rounded-md border border-[#00000033] p-3 transition-colors duration-200 hover:border-[#47CD63] focus:outline-none focus:ring-2 focus:ring-[#47CD63]"
-              rows={4}
-              placeholder="Type Your Message.."
-            />
-          </div>
-          <ButtonModule
-            type="button"
-            variant="primary"
-            size="md"
-            icon={<ArrowIcon />}
-            iconPosition="end"
-            onClick={handleProductClick}
-            className="md:w-[255px]"
-          >
-            Submit
-          </ButtonModule>
-        </div>
+        <EnquiryForm
+          title="Enquiry Form"
+          types={types}
+          apiKey="Vo0OnvZwZkP9x0JMOLMb"
+          listId="TXL3t7638tGtBAtquo6OJf2A"
+          variants={item}
+          successMessage="Thank you for your enquiry! We'll get back to you soon."
+          errorMessage="Submission failed. Please try again."
+        />
       </section>
 
       <section id="about" className="about-section relative w-full items-center justify-between bg-black md:py-16">
-        {/* Replaced video with Image component */}
         <div className="absolute inset-0 h-full w-full overflow-hidden">
           <Image
             src="/susmo/footbg.svg"
@@ -179,15 +121,6 @@ export default function Web() {
               </div>
             </div>
           </div>
-          <SubscriptionForm
-            title="Never miss an update, offers and invites."
-            termsText="By submitting, I agree to receive future communications from Susmo and I have read and agree to Susmo Terms and acknowledge the Data Privacy Notice."
-            apiKey="Vo0OnvZwZkP9x0JMOLMb"
-            listId="TXL3t7638tGtBAtquo6OJf2A"
-            variants={item}
-            successMessage="You're subscribed! Welcome to our community."
-            errorMessage="Oops! Something went wrong. Please try again later."
-          />
         </motion.div>
       </section>
 
