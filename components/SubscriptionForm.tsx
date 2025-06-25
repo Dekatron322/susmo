@@ -58,7 +58,7 @@ export const SubscriptionForm = ({
     formData.append("boolean", "true")
 
     try {
-      const response = await fetch("https://sendy-admin.smarthavensystems.com/subscribe", {
+      const response = await fetch("https://proxy-vv2k.onrender.com/subscribe", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
