@@ -17,34 +17,84 @@ import { FormModule } from "components/Button/FormModule"
 import { DropdownPopoverModule } from "components/Button/DropdownModule"
 import NewNav from "components/Navbar/NewNav"
 import { SubscriptionForm } from "components/SubscriptionForm"
+import { toast } from "sonner"
 
 export default function Nda() {
   const router = useRouter()
-  const [username, setUsername] = useState("")
-  const [searchText, setSearchText] = useState("")
-  const [type, setType] = useState("")
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    phoneNumber: "",
+    companyType: "",
+    state: "",
+    country: "",
+    purpose: "",
+    address: "",
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleProductClick = () => {
-    router.push("/our-product")
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
   }
 
-  const types = [
-    { value: "Drives", label: "Drives" },
-    { value: "Drones", label: "Drones" },
-    { value: "Brrikes", label: "Brrikes" },
-  ]
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
 
-  const handleExploreClick = () => {
-    router.push("/solutions")
+    // Validate required fields
+    if (!formData.email || !formData.fullName || !formData.purpose || !formData.address) {
+      toast.error("Please fill in all required fields", {
+        position: "top-center",
+        duration: 5000,
+      })
+      setIsSubmitting(false)
+      return
+    }
+
+    try {
+      const response = await fetch("https://nda-4kju.onrender.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: formData.email,
+        }),
+      })
+
+      if (response.ok) {
+        toast.success("NDA submitted successfully! We'll be in touch soon.", {
+          position: "top-center",
+          duration: 5000,
+        })
+        // Reset form after successful submission
+        setFormData({
+          fullName: "",
+          email: "",
+          phoneNumber: "",
+          companyType: "",
+          state: "",
+          country: "",
+          purpose: "",
+          address: "",
+        })
+      } else {
+        throw new Error("Submission failed")
+      }
+    } catch (error) {
+      console.error("Submission error:", error)
+      toast.error("Failed to submit NDA. Please try again later.", {
+        position: "top-center",
+        duration: 5000,
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
-
-  const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(event.target.value)
-  }
-
-  useEffect(() => {
-    // Filter categories based on search text
-  }, [searchText])
 
   const item = {
     hidden: { y: 20, opacity: 0 },
@@ -63,7 +113,6 @@ export default function Nda() {
       <Navbar />
       <NewNav />
       <section className="about-section relative grid w-full items-center justify-center bg-black  max-sm:h-[253px] md:h-[450px] md:py-16">
-        {/* Replaced video with Image component */}
         <div className="absolute inset-0 h-full w-full overflow-hidden">
           <Image
             src="/susmo/solutions.svg"
@@ -93,98 +142,113 @@ export default function Nda() {
       </section>
 
       <section className=" relative flex w-full flex-col items-center bg-[#EEEEEE] max-sm:px-4 md:pb-10">
-        <div className="relative z-20 -mt-24 mb-4 flex  w-full flex-col gap-6 rounded-2xl bg-white max-sm:p-6 md:w-[766px] md:p-8">
+        <form
+          onSubmit={handleSubmit}
+          className="relative z-20 -mt-24 mb-4 flex  w-full flex-col gap-6 rounded-2xl bg-white max-sm:p-6 md:w-[766px] md:p-8"
+        >
           <div className="grid  gap-6 md:grid-cols-2">
             <FormModule
               label="Full Name"
-              type="name"
+              name="fullName"
+              type="text"
               placeholder="Enter Name"
-              value={username}
-              onChange={handleUsernameChange}
+              value={formData.fullName}
+              onChange={handleInputChange}
               className="w-full"
             />
             <FormModule
               label="Email"
-              type="name"
+              name="email"
+              type="email"
               placeholder="Enter Email"
-              value={username}
-              onChange={handleUsernameChange}
+              value={formData.email}
+              onChange={handleInputChange}
               className="w-full"
             />
             <FormModule
               label="Phone Number"
-              type="name"
+              name="phoneNumber"
+              type="tel"
               placeholder="+91"
-              value={username}
-              onChange={handleUsernameChange}
+              value={formData.phoneNumber}
+              onChange={handleInputChange}
               className="w-full"
             />
             <FormModule
               label="Company Type"
-              type="name"
+              name="companyType"
+              type="text"
               placeholder="Enter Company Type"
-              value={username}
-              onChange={handleUsernameChange}
+              value={formData.companyType}
+              onChange={handleInputChange}
               className="w-full"
             />
             <FormModule
               label="State"
-              type="name"
+              name="state"
+              type="text"
               placeholder="Enter State"
-              value={username}
-              onChange={handleUsernameChange}
+              value={formData.state}
+              onChange={handleInputChange}
               className="w-full"
             />
-
             <FormModule
               label="Country"
-              type="name"
+              name="country"
+              type="text"
               placeholder="Enter Country"
-              value={username}
-              onChange={handleUsernameChange}
+              value={formData.country}
+              onChange={handleInputChange}
               className="w-full"
             />
           </div>
 
           <div className="flex flex-col gap-2">
-            <label htmlFor="refundNotes" className="text-[#6C7278]">
-              Purpose
+            <label htmlFor="purpose" className="text-[#6C7278]">
+              Purpose <span className="text-red-500">*</span>
             </label>
             <textarea
-              id="refundNotes"
+              id="purpose"
+              name="purpose"
               className="focus:border-primary focus:ring-primary w-full rounded-md border border-[#EDF1F3] p-3 transition-colors duration-200 hover:border-[#47CD63] focus:outline-none focus:ring-2 focus:ring-[#47CD63]"
               rows={2}
               placeholder="Enter Purpose"
+              value={formData.purpose}
+              onChange={handleInputChange}
+              required
             />
           </div>
 
           <div className="flex flex-col gap-2">
-            <label htmlFor="refundNotes" className="text-[#6C7278]">
-              Address
+            <label htmlFor="address" className="text-[#6C7278]">
+              Address <span className="text-red-500">*</span>
             </label>
             <textarea
-              id="refundNotes"
+              id="address"
+              name="address"
               className="focus:border-primary focus:ring-primary w-full rounded-md border border-[#EDF1F3] p-3 transition-colors duration-200 hover:border-[#47CD63] focus:outline-none focus:ring-2 focus:ring-[#47CD63]"
               rows={2}
               placeholder="Enter Address Here"
+              value={formData.address}
+              onChange={handleInputChange}
+              required
             />
           </div>
           <ButtonModule
-            type="button"
+            type="submit"
             variant="primary"
             size="md"
             icon={<ArrowIcon />}
             iconPosition="end"
-            onClick={handleProductClick}
+            disabled={isSubmitting}
             className="w-[255px]"
           >
-            Submit
+            {isSubmitting ? "Submitting..." : "Submit"}
           </ButtonModule>
-        </div>
+        </form>
       </section>
 
       <section id="about" className="about-section relative w-full items-center justify-between bg-black md:py-16">
-        {/* Replaced video with Image component */}
         <div className="absolute inset-0 h-full w-full overflow-hidden">
           <Image
             src="/susmo/footbg.svg"
