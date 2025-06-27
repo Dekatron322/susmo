@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation"
 import { ButtonModule } from "components/Button/Button"
 import ArrowIcon from "public/susmo/ArrowUpRight"
 import NewNav from "components/Navbar/NewNav"
+import MedalIcon from "public/susmo/MedalMilitary"
 
 export default function Web() {
   const router = useRouter()
@@ -31,7 +32,7 @@ export default function Web() {
   }
 
   const handleWhyClick = () => {
-    router.push("/why-susmo")
+    window.location.href = "mailto:military@example.com" // Replace with your actual military email
   }
 
   return (
@@ -85,10 +86,10 @@ export default function Web() {
                   onClick={handleWhyClick}
                   variant="outline"
                   size="md"
-                  icon={<ArrowIcon />}
+                  icon={<MedalIcon />}
                   iconPosition="end"
                 >
-                  Why Susmo?
+                  Military Enquiry
                 </ButtonModule>
 
                 <ButtonModule
@@ -115,9 +116,9 @@ export default function Web() {
         >
           <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 md:flex-row">
             <p className="text-sm text-[#000000]  md:text-base">
-              This website uses cookies and similar technologies (“Cookies”). By clicking “Accept All”, you consent to
+              This website uses cookies and similar technologies ("Cookies"). By clicking "Accept All", you consent to
               the use of cookies to analyse and improve our website and to make our content and advertisements more
-              relevant to your interests. You can click “Cookie Settings” to change these settings at any time and find
+              relevant to your interests. You can click "Cookie Settings" to change these settings at any time and find
               more information about how we use cookies in our Cookie Policy
             </p>
             <button

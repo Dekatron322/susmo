@@ -83,7 +83,7 @@ export default function Web() {
 
       <section className="headfont relative flex w-full flex-col items-center bg-[#EEEEEE] max-sm:px-4 md:pb-10">
         <EnquiryForm
-          title="Enquiry Form"
+          title=""
           types={types}
           apiKey="Vo0OnvZwZkP9x0JMOLMb"
           listId="TXL3t7638tGtBAtquo6OJf2A"
