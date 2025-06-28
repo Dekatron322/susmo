@@ -116,10 +116,10 @@ export default function Web() {
         >
           <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 md:flex-row">
             <p className="text-sm text-[#000000]  md:text-base">
-              This website uses cookies and similar technologies ("Cookies"). By clicking "Accept All", you consent to
-              the use of cookies to analyse and improve our website and to make our content and advertisements more
-              relevant to your interests. You can click "Cookie Settings" to change these settings at any time and find
-              more information about how we use cookies in our Cookie Policy
+              This website uses cookies and similar technologies (&quot;Cookies&quot;). By clicking &quot;Accept
+              All&quot;, you consent to the use of cookies to analyse and improve our website and to make our content
+              and advertisements more relevant to your interests. You can click &quot;Cookie Settings&quot; to change
+              these settings at any time and find more information about how we use cookies in our Cookie Policy
             </p>
             <button
               onClick={handleAcceptCookies}
