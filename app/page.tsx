@@ -32,7 +32,7 @@ export default function Web() {
   }
 
   const handleWhyClick = () => {
-    window.location.href = "mailto:military@example.com" // Replace with your actual military email
+    window.location.href = "mail@sm-o-d.com" // Replace with your actual military email
   }
 
   return (

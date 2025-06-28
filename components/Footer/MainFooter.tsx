@@ -100,6 +100,9 @@ const MainFooter = () => {
           <Link href="cookie-policy" className="hover-effect">
             Cookies
           </Link>
+          <Link href="nda" className="hover-effect whitespace-nowrap">
+            Supplier NDA
+          </Link>
         </div>
         <div className="flex w-full border-t border-[#FFFFFF26] pt-4 max-sm:mt-10 max-sm:justify-center md:mt-20 md:justify-between">
           <div className="flex w-full items-center gap-6 text-sm text-[#FFFFFF] max-sm:text-center">
