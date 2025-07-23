@@ -11,6 +11,7 @@ interface FormInputProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   className?: string
   error?: boolean
+  required?: boolean
 }
 
 export const FormModule: React.FC<FormInputProps> = ({
@@ -22,6 +23,7 @@ export const FormModule: React.FC<FormInputProps> = ({
   onChange,
   className = "",
   error = false,
+  required = false, // Add this with default value
 }) => {
   const [isFocused, setIsFocused] = useState(false)
 
@@ -45,6 +47,7 @@ export const FormModule: React.FC<FormInputProps> = ({
           onChange={onChange}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
+          required={required} // Add this line
         />
       </div>
     </div>

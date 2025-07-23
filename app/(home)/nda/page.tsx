@@ -22,10 +22,13 @@ import { toast } from "sonner"
 export default function Nda() {
   const router = useRouter()
   const [formData, setFormData] = useState({
-    fullName: "",
+    firstName: "",
+    lastName: "",
     email: "",
     phoneNumber: "",
     companyType: "",
+    companyName: "",
+    companyTitle: "",
     state: "",
     country: "",
     purpose: "",
@@ -41,13 +44,33 @@ export default function Nda() {
     }))
   }
 
+  const handleCompanyTypeChange = (value: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      companyType: value,
+      // Reset company fields when type changes
+      companyName: value ? prev.companyName : "",
+      companyTitle: value ? prev.companyTitle : "",
+    }))
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
 
     // Validate required fields
-    if (!formData.email || !formData.fullName || !formData.purpose || !formData.address) {
-      toast.error("Please fill in all required fields", {
+    const requiredFields = ["firstName", "lastName", "email", "phoneNumber", "country", "address", "purpose"]
+
+    const missingFields = requiredFields.filter((field) => !formData[field as keyof typeof formData])
+
+    // Company fields are required if companyType is selected
+    if (formData.companyType) {
+      if (!formData.companyName) missingFields.push("companyName")
+      if (!formData.companyTitle) missingFields.push("companyTitle")
+    }
+
+    if (missingFields.length > 0) {
+      toast.error(`Please fill in all required fields: ${missingFields.join(", ")}`, {
         position: "top-center",
         duration: 5000,
       })
@@ -56,14 +79,28 @@ export default function Nda() {
     }
 
     try {
+      const payload = {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        phoneNumber: formData.phoneNumber,
+        country: formData.country,
+        state: formData.state,
+        address: formData.address,
+        purpose: formData.purpose,
+        ...(formData.companyType && {
+          companyType: formData.companyType,
+          companyName: formData.companyName,
+          companyTitle: formData.companyTitle,
+        }),
+      }
+
       const response = await fetch("https://nda-4kju.onrender.com", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          email: formData.email,
-        }),
+        body: JSON.stringify(payload),
       })
 
       if (response.ok) {
@@ -73,21 +110,25 @@ export default function Nda() {
         })
         // Reset form after successful submission
         setFormData({
-          fullName: "",
+          firstName: "",
+          lastName: "",
           email: "",
           phoneNumber: "",
           companyType: "",
+          companyName: "",
+          companyTitle: "",
           state: "",
           country: "",
           purpose: "",
           address: "",
         })
       } else {
-        throw new Error("Submission failed")
+        const errorData = (await response.json()) as any
+        throw new Error(errorData.message || "Submission failed")
       }
     } catch (error) {
       console.error("Submission error:", error)
-      toast.error("Failed to submit NDA. Please try again later.", {
+      toast.error(error instanceof Error ? error.message : "Failed to submit NDA. Please try again later.", {
         position: "top-center",
         duration: 5000,
       })
@@ -146,14 +187,25 @@ export default function Nda() {
           onSubmit={handleSubmit}
           className="relative z-20 -mt-24 mb-4 flex  w-full flex-col gap-6 rounded-2xl bg-white max-sm:p-6 md:w-[766px] md:p-8"
         >
-          <div className="grid  gap-6 md:grid-cols-2">
+          <div className="grid gap-6 md:grid-cols-2">
             <FormModule
-              label="Full Name"
-              name="fullName"
+              label="First Name"
+              name="firstName"
               type="text"
-              placeholder="Enter Name"
-              value={formData.fullName}
+              placeholder="Enter First Name"
+              value={formData.firstName}
               onChange={handleInputChange}
+              required
+              className="w-full"
+            />
+            <FormModule
+              label="Last Name"
+              name="lastName"
+              type="text"
+              placeholder="Enter Last Name"
+              value={formData.lastName}
+              onChange={handleInputChange}
+              required
               className="w-full"
             />
             <FormModule
@@ -163,6 +215,7 @@ export default function Nda() {
               placeholder="Enter Email"
               value={formData.email}
               onChange={handleInputChange}
+              required
               className="w-full"
             />
             <FormModule
@@ -172,26 +225,49 @@ export default function Nda() {
               placeholder="+91"
               value={formData.phoneNumber}
               onChange={handleInputChange}
+              required
               className="w-full"
             />
-            <FormModule
+
+            <DropdownPopoverModule
               label="Company Type"
-              name="companyType"
-              type="text"
-              placeholder="Enter Company Type"
+              options={[
+                { value: "supplier", label: "Supplier" },
+                { value: "distributor", label: "Distributor" },
+                { value: "manufacturer", label: "Manufacturer" },
+                { value: "other", label: "Other" },
+              ]}
               value={formData.companyType}
-              onChange={handleInputChange}
+              onChange={handleCompanyTypeChange}
+              placeholder="Select Company Type"
               className="w-full"
             />
-            <FormModule
-              label="State"
-              name="state"
-              type="text"
-              placeholder="Enter State"
-              value={formData.state}
-              onChange={handleInputChange}
-              className="w-full"
-            />
+
+            {formData.companyType && (
+              <>
+                <FormModule
+                  label="Company Name"
+                  name="companyName"
+                  type="text"
+                  placeholder="Enter Company Name"
+                  value={formData.companyName}
+                  onChange={handleInputChange}
+                  required={!!formData.companyType}
+                  className="w-full"
+                />
+                <FormModule
+                  label="Your Title"
+                  name="companyTitle"
+                  type="text"
+                  placeholder="Enter Your Title"
+                  value={formData.companyTitle}
+                  onChange={handleInputChange}
+                  required={!!formData.companyType}
+                  className="w-full"
+                />
+              </>
+            )}
+
             <FormModule
               label="Country"
               name="country"
@@ -199,23 +275,17 @@ export default function Nda() {
               placeholder="Enter Country"
               value={formData.country}
               onChange={handleInputChange}
+              required
               className="w-full"
             />
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <label htmlFor="purpose" className="text-[#6C7278]">
-              Purpose <span className="text-red-500">*</span>
-            </label>
-            <textarea
-              id="purpose"
-              name="purpose"
-              className="focus:border-primary focus:ring-primary w-full rounded-md border border-[#EDF1F3] p-3 transition-colors duration-200 hover:border-[#47CD63] focus:outline-none focus:ring-2 focus:ring-[#47CD63]"
-              rows={2}
-              placeholder="Enter Purpose"
-              value={formData.purpose}
+            <FormModule
+              label="State/Region"
+              name="state"
+              type="text"
+              placeholder="Enter State/Region"
+              value={formData.state}
               onChange={handleInputChange}
-              required
+              className="w-full"
             />
           </div>
 
@@ -227,13 +297,30 @@ export default function Nda() {
               id="address"
               name="address"
               className="focus:border-primary focus:ring-primary w-full rounded-md border border-[#EDF1F3] p-3 transition-colors duration-200 hover:border-[#47CD63] focus:outline-none focus:ring-2 focus:ring-[#47CD63]"
-              rows={2}
-              placeholder="Enter Address Here"
+              rows={3}
+              placeholder="Enter Full Address"
               value={formData.address}
               onChange={handleInputChange}
               required
             />
           </div>
+
+          <div className="flex flex-col gap-2">
+            <label htmlFor="purpose" className="text-[#6C7278]">
+              Purpose <span className="text-red-500">*</span>
+            </label>
+            <textarea
+              id="purpose"
+              name="purpose"
+              className="focus:border-primary focus:ring-primary w-full rounded-md border border-[#EDF1F3] p-3 transition-colors duration-200 hover:border-[#47CD63] focus:outline-none focus:ring-2 focus:ring-[#47CD63]"
+              rows={3}
+              placeholder="Describe the purpose of this NDA"
+              value={formData.purpose}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+
           <ButtonModule
             type="submit"
             variant="primary"
